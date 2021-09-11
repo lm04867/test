@@ -26,5 +26,6 @@ if __name__ == '__main__':
 
 
         distance = grovepi.ultrasonicRead(ultrasonic)
-        setText(distance)
+        string_distance = str(distance)
+        setText(string_distance)
         setRGB(0,128,64)
