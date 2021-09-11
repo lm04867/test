@@ -25,10 +25,21 @@ if __name__ == '__main__':
         #sleep for a reasonable time of 200ms between each iteration.
         time.sleep(0.2)
 
-
+        #Reads a number between 0-1023 and divides it to have same range as ultrasonic reader
         i = grovepi.analogRead(potentiometer)
-        print(i)
+        threshold = i/1.978723
+        string_threshold = str(threshold)
+        print(threshold)
 
+
+        #Reads ultrosonic data between 0-517 then stores in variable
         distance = grovepi.ultrasonicRead(ultrasonic)
-        setText(distance)
-        setRGB(0,128,64)
+        #converts int to string to it can be displayed on lcd
+        string_distance = str(distance)
+
+        if distance < threshold:
+            #Object present
+
+
+            setText(string_threshold + "OBJ PRES \n" + string_distance)
+            setRGB(0,128,64)
