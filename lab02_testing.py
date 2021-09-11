@@ -17,13 +17,17 @@ if __name__ == '__main__':
     lcd_display = 2     #i2c2
     potentiometer = 0   #A0
 
+    grovepi.pinMode(ultrasonic, "OUTPUT")
 
+    i = 0
     while True:
         #So we do not poll the sensors too quickly which may introduce noise,
         #sleep for a reasonable time of 200ms between each iteration.
         time.sleep(0.2)
 
 
+        i = grovepi.analogRead(potentiometer)
+        print(i)
 
         distance = grovepi.ultrasonicRead(ultrasonic)
         string_distance = str(distance)
