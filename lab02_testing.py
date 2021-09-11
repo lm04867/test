@@ -13,22 +13,25 @@ import grovepi
 is, if you run `python3 grovepi_sensors.py` in terminal, this if-statement will
 be true"""
 if __name__ == '__main__':
+        
+        
     ultrasonic = 4    # D4
     lcd_display = 2     #i2c2
     potentiometer = 0   #A0
 
-    grovepi.pinMode(ultrasonic, "OUTPUT")
-
-    i = 0
+    
+    
+    i =0
     while True:
         #So we do not poll the sensors too quickly which may introduce noise,
         #sleep for a reasonable time of 200ms between each iteration.
-        time.sleep(0.2)
+        time.sleep(.02)
 
         #Reads a number between 0-1023 and divides it to have same range as ultrasonic reader
         i = grovepi.analogRead(potentiometer)
         threshold = i/1.978723
-        string_threshold = str(threshold)
+        formatted_threshold = "{:.0f}".format(threshold)
+        string_threshold = str(formatted_threshold)
         print(threshold)
 
 
@@ -37,10 +40,18 @@ if __name__ == '__main__':
 
         #converts int to string to it can be displayed on lcd
         string_distance = str(distance)
+        print(distance)
+        setRGB(0,128,64)
+       
+        
 
-        if distance < threshold:
+        if (distance < threshold):
             #Object present
+        
 
+            setText_norefresh(string_threshold + 'cm   OBJ PRES\n' + string_distance +'cm')
+            
+        elif(distance>threshold):
 
-            setText(string_threshold + "OBJ PRES \n" + string_distance)
-            setRGB(0,128,64)
+            setText_norefresh(string_threshold + 'cm \n' + string_distance +'cm')
+            
